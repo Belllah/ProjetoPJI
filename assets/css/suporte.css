@@ -1,8 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+}
 .navbar {
-  background-color: rgba(8, 14, 31, 0.88);
-  backdrop-filter: blur(18px);
+  background-color: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(69, 124, 255, 0.18);
-  padding: 1rem 0;
+}
+
+.sticky-menu {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+  width: 100% !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22) !important;
+}
+
+body {
+  padding-top: 70px !important;
 }
 
 .navbar .navbar-brand {
@@ -382,6 +400,14 @@ body {
 @media (max-width: 767px) {
   .button-stack {
     grid-template-columns: 1fr;
+  }
+  .suporte-section {
+    padding: 40px 0;
+  }
+  .suporte-card {
+    padding: 1.2rem;
+    max-width: 350px;
+    border-radius: 20px;
   }
 }
 

@@ -253,3 +253,74 @@ new IntersectionObserver((entries)=>{
 statsObserver.observe(
     statsSection
 );
+
+
+/* ===================================================
+   MENU FIXO
+=================================================== */
+
+function initFixedMenu() {
+    const navbar = document.querySelector(".sticky-menu");
+    
+    if (!navbar) return;
+
+    // Aplica estilos de menu fixo dinamicamente
+    navbar.style.position = "fixed";
+    navbar.style.top = "0";
+    navbar.style.left = "0";
+    navbar.style.right = "0";
+    navbar.style.zIndex = "7000";
+    navbar.style.width = "100%";
+    navbar.style.boxShadow = "0 12px 28px rgba(0, 0, 0, 0.22)";
+
+    // Adiciona padding no body para compensar menu fixo
+    document.body.style.paddingTop = "70px";
+}
+
+function initNavMenuAutoClose() {
+    const navbarCollapse = document.getElementById("navbarNav");
+    const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+    const toggler = document.querySelector(".navbar-toggler");
+
+    if (!navbarCollapse || !navLinks.length) return;
+
+    navLinks.forEach((link) => {
+        link.addEventListener("click", (event) => {
+            const href = link.getAttribute("href");
+            const linkUrl = new URL(href, location.href);
+
+            if (navbarCollapse.classList.contains("show")) {
+                navbarCollapse.classList.remove("show");
+                navbarCollapse.classList.add("collapsing");
+                setTimeout(() => {
+                    navbarCollapse.classList.remove("collapsing");
+                }, 300);
+                if (toggler) {
+                    toggler.classList.add("collapsed");
+                    toggler.setAttribute("aria-expanded", "false");
+                }
+            }
+
+            if (linkUrl.pathname === location.pathname && linkUrl.hash) {
+                const target = document.querySelector(linkUrl.hash);
+                if (target) {
+                    event.preventDefault();
+                    setTimeout(() => {
+                        target.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }, 150);
+                }
+            }
+        });
+    });
+}
+
+// Aguarda o DOM estar carregado
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+        initFixedMenu();
+        initNavMenuAutoClose();
+    });
+} else {
+    initFixedMenu();
+    initNavMenuAutoClose();
+}
